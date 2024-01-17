@@ -15,12 +15,18 @@ app.listen(port, () => {
 // ----- ROTAS ABERTAS ----- //
 import RepositorioUsuarioPg from "./external/db/RepositorioUsuarioPg";
 import SenhaCrypto from "./external/auth/SenhaCrypto";
-import RegistrarUsuario from "./core/usuario/service/RegistarUsuario";
 import IdHash from "./external/auth/IdHash";
-import RegistrarUsuarioController from "./external/api/RegistrarUsuarioController";
 
 const repositorioUsuario = new RepositorioUsuarioPg();
 const provedorCripto = new SenhaCrypto();
 const id = new IdHash();
+
+import RegistrarUsuarioController from "./external/api/RegistrarUsuarioController";
+import RegistrarUsuario from "./core/usuario/service/RegistarUsuario";
 const registrarUsuario = new RegistrarUsuario(repositorioUsuario, provedorCripto, id);
 new RegistrarUsuarioController(app, registrarUsuario);
+
+import LoginUsuarioController from "./external/api/LoginUsuarioController";
+import LoginUsuario from "./core/usuario/service/LoginUsuario";
+const loginUsuario = new LoginUsuario(repositorioUsuario, provedorCripto);
+new LoginUsuarioController(app, loginUsuario);
