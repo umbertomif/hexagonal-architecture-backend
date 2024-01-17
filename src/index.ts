@@ -30,3 +30,11 @@ import LoginUsuarioController from "./external/api/LoginUsuarioController";
 import LoginUsuario from "./core/usuario/service/LoginUsuario";
 const loginUsuario = new LoginUsuario(repositorioUsuario, provedorCripto);
 new LoginUsuarioController(app, loginUsuario);
+
+// ----- ROTAS PROTEGIDAS ----- //
+import ObterProdutoPorId from "./core/produto/service/ObterProdutoPorId";
+import ObterProdutoPorIdController from "./external/api/ObterProdutoPorIdController";
+import UsuarioMiddleware from "./external/api/UsuarioMiddleware";
+const obterProdutoPorId = new ObterProdutoPorId();
+const usuarioMiddleware = UsuarioMiddleware(repositorioUsuario);
+new ObterProdutoPorIdController(app, obterProdutoPorId, usuarioMiddleware);
